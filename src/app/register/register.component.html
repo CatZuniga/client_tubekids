@@ -1,0 +1,126 @@
+<!--MODAL Sign UP-->
+<div class="row">
+  <div id="" class="col s12 m4 offset-m4">
+    <div class=" ">
+      <h4 class="center">Sign Up</h4>
+
+      <form [formGroup]="userForm" (ngSubmit)="registerUser(userForm)">
+
+
+        <div class="input-field">
+          <label for="name">
+            <i class="material-icons left">account_circle</i>Name</label>
+          <input id="name" class="form-control" formControlName="name" type="text">
+        </div>
+        <div *ngIf="userForm.controls['name'].invalid && (userForm.controls['name'].dirty || userForm.controls['name'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="userForm.controls['name'].errors.required">
+            Name is required.
+          </div>
+        </div>
+
+        <div class="input-field">
+          <label>
+            <i class="material-icons left">account_circle</i>Lastname</label>
+          <input class="form-control" formControlName="lastName" type="text">
+        </div>
+        <div *ngIf="userForm.controls['lastName'].invalid && (userForm.controls['lastName'].dirty || userForm.controls['lastName'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="userForm.controls['lastName'].errors.required">
+            Lastname is required.
+          </div>
+        </div>
+
+        <div class="input-field">
+          <label>
+            <i class="material-icons left">public</i>Country</label>
+          <input class="form-control" formControlName="country" type="text">
+        </div>
+        <div *ngIf="userForm.controls['country'].invalid && (userForm.controls['country'].dirty || userForm.controls['country'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="userForm.controls['country'].errors.required">
+            Country is required.
+          </div>
+        </div>
+
+
+
+        <div class="input-field">
+          <label>
+            <i class="material-icons left">today</i>Birthday (YYYY/MM/DD)</label>
+
+          <input type="text" name="input" formControlName="birthday"  />
+        </div>
+        <div *ngIf="userForm.controls['birthday'].invalid && (userForm.controls['birthday'].dirty || userForm.controls['birthday'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="userForm.controls['birthday'].errors.required">
+            Birthday is required.
+          </div>
+          <div *ngIf="userForm.controls['birthday'].errors.validAge">Age must be a valid</div>
+          <div *ngIf="userForm.controls['birthday'].errors.pattern">Invalid date</div>
+        </div>
+
+
+
+
+        <div class="input-field">
+          <label>
+            <i class="material-icons left">email</i>Email</label>
+          <input class="form-control " formControlName="email" type="email">
+        </div>
+        <div *ngIf="userForm.controls['email'].invalid && (userForm.controls['email'].dirty || userForm.controls['email'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="userForm.controls['email'].errors.required">
+            Email is required.
+          </div>
+          <div *ngIf="userForm.controls['email'].errors.email">This email address is invalid</div>
+
+        </div>
+
+
+
+        <div class="input-field">
+          <label>
+            <i class="material-icons left">lock</i>Password</label>
+          <input class="form-control" formControlName="password" type="password">
+        </div>
+        <div *ngIf="userForm.controls['password'].invalid && (userForm.controls['password'].dirty || userForm.controls['password'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="userForm.controls['password'].errors.required">
+            Password is required.
+          </div>
+        </div>
+
+        <div class="input-field">
+          <label>
+            <i class="material-icons left">lock</i>Password confirm</label>
+          <input class="form-control" formControlName="passConfirm" type="password">
+        </div>
+        <div *ngIf="userForm.controls['passConfirm'].invalid && (userForm.controls['passConfirm'].dirty || userForm.controls['passConfirm'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="userForm.controls['passConfirm'].errors.required">
+            Confirm password is required.
+          </div>
+          <div *ngIf="userForm.errors.confirm"> Passwords do not match ;c</div>
+         
+          <div *ngIf="userForm.errors">
+            no match.
+          </div>
+          <div *ngIf="userForm.controls['passConfirm'].errors.confirm">
+            Confirm password is required.khhjksd
+          </div>
+        
+        </div>
+        
+        <div class="row">
+          <button type="submit" [disabled]="userForm.pristine || userForm.invalid" class="col m10 offset-m1 btn btn-success modal-close">
+            Sign Up
+          </button>
+        </div>
+      </form>
+
+
+    </div>
+
+  </div>
+</div>

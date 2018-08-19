@@ -1,0 +1,227 @@
+<main class="container ">
+    <div class="row">
+        <h4>Profiles </h4>
+    </div>
+    <div class="row">
+
+    </div>
+
+
+    <!--Card Product -->
+
+
+    <div class="row">
+        <div *ngFor="let profile of profiles" class="col s12 m4">
+            <div class="card  ">
+                <div class="card-image ">
+                    <img src="../assets/img/imagenes/nina.png">
+                </div>
+                <span class="card-title center">
+                    <h6>{{profile.name}}</h6>
+
+                </span>
+                <!-- A container for floating buttons -->
+
+                <div class="card-content  center ">
+
+                </div>
+                <div class="card-buttons ">
+
+                    <button class="btn-floating btn-small waves-effect waves-light blue darken-3 tooltipped modal-trigger" data-position="bottom"
+                        data-target="modalEditProfile" data-tooltip="Edit" (click)="cargar(profile)">
+                        <i class="material-icons small">edit</i>
+                    </button>
+
+
+
+                    <button class="btn-floating btn-small waves-effect waves-light red darken-4 tooltipped " data-position="bottom" data-tooltip="Delete"
+                        (click)="deleteProfile(profile)">
+                        <i class="material-icons small">delete</i>
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Trigger Profile -->
+    <div class="fixed-action-btn">
+        <button data-position="left" data-tooltip="Add profile" data-target="modalProfile" class="btn-floating btn-large waves-effect waves-light red tooltipped modal-trigger">
+            <i class="material-icons small">add</i>
+
+        </button>
+    </div>
+
+    <!-- Modal Structure Profile -->
+
+    <div class="row">
+        <div id="modalProfile" class="modal col s12 m5 ">
+            <div class="modal-content">
+                <h4>Profile</h4>
+                <div class="row">
+
+                    <form [formGroup]="profileForm" (ngSubmit)="postProfile(profileForm)">
+
+                        <div class="">
+                            <input class="form-control" formControlName="_id" type="text" hidden>
+                            <input class="form-control" formControlName="user" type="text" hidden>
+                        </div>
+                        <div class="input-field ">
+                            <input class="form-control" formControlName="name" type="text" class="validate">
+                            <label>
+                                <i class="material-icons left">account_box</i>Fullname</label>
+                        </div>
+
+                        <div *ngIf="profileForm.controls['name'].invalid && (profileForm.controls['name'].dirty || profileForm.controls['name'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="profileForm.controls['name'].errors.required">
+                                Name is required.
+                            </div>
+                        </div>
+
+                        <div class="input-field ">
+                            <input class="form-control" formControlName="years" type="number" class="validate">
+                            <label>
+                                <i class="material-icons left">account_box</i>Age</label>
+                        </div>
+
+                        <div *ngIf="profileForm.controls['years'].invalid && (profileForm.controls['years'].dirty || profileForm.controls['years'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="profileForm.controls['years'].errors.required">
+                                Age is required.
+                            </div>
+                            <div *ngIf="profileForm.controls['years'].errors">Invalid age</div>
+                           
+                        </div>
+
+                        <div class="input-field ">
+                            <input class="form-control" formControlName="username" type="text" class="validate">
+                            <label>
+                                <i class="material-icons left">account_box</i>Username</label>
+                        </div>
+
+                        <div *ngIf="profileForm.controls['username'].invalid && (profileForm.controls['username'].dirty || profileForm.controls['username'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="profileForm.controls['username'].errors.required">
+                                Username is required.
+                            </div>
+                        </div>
+                        <div class="input-field ">
+                            <input class="form-control" formControlName="pin" type="password" class="validate">
+                            <label>
+                                <i class="material-icons left">lock</i>PIN</label>
+                        </div>
+
+                        <div *ngIf="profileForm.controls['pin'].invalid && (profileForm.controls['pin'].dirty || profileForm.controls['pin'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="profileForm.controls['pin'].errors.required">
+                                PIN is required.
+                            </div>
+                            <div *ngIf="profileForm.controls['pin'].errors.minlength">PIN must be at least 6 characters</div>
+                        </div>
+
+                        <div class="input-field ">
+                            <input class="form-control" formControlName="pic" type="text" class="validate">
+                            <label>
+                                <i class="material-icons left">account_box</i>Pic</label>
+                        </div>
+
+                        <button type="submit" [disabled]="profileForm.pristine || profileForm.invalid" class="btn btn-success modal-close">
+                            Save
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="modalEditProfile" class="modal col s12 m5 ">
+            <div class="modal-content">
+                <h4>Profile</h4>
+                <div class="row">
+
+                    <form [formGroup]="editprofForm" (ngSubmit)="updateProfile(editprofForm)">
+
+                        <div class="">
+                            <input class="form-control" formControlName="_id" type="text" hidden>
+                            <input class="form-control" formControlName="user" type="text" hidden>
+                        </div>
+                        <div class="input-field ">
+                            <input class="form-control" formControlName="name" type="text" class="validate">
+                            <label>
+                         <i class="material-icons left">account_box</i>Fullname</label>
+                        </div>
+
+                        <div *ngIf="editprofForm.controls['name'].invalid && (editprofForm.controls['name'].dirty || editprofForm.controls['name'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="editprofForm.controls['name'].errors.required">
+                                Name is required.
+                            </div>
+                        </div>
+
+                        <div class="input-field ">
+                            <input class="form-control" formControlName="years" type="text" class="validate">
+                            <label>
+                                <i class="material-icons left">account_box</i>Age</label>
+                        </div>
+
+                        <div *ngIf="editprofForm.controls['years'].invalid && (editprofForm.controls['years'].dirty || editprofForm.controls['years'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="editprofForm.controls['years'].errors.required">
+                                Age is required.
+                            </div>
+                            <div *ngIf="editprofForm.controls['years'].errors">Invalid age</div>
+                           
+                        </div>
+
+                        <div class="input-field ">
+                            <input class="form-control" formControlName="username" type="text" class="validate">
+                            <label>
+                                <i class="material-icons left">account_box</i>Username</label>
+                        </div>
+
+                        <div *ngIf="editprofForm.controls['username'].invalid && (editprofForm.controls['username'].dirty || editprofForm.controls['username'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="editprofForm.controls['username'].errors.required">
+                                Username is required.
+                            </div>
+                        </div>
+                        <div class="input-field ">
+                            <input class="form-control" formControlName="pin" type="text" class="validate">
+                            <label>
+                                <i class="material-icons left">lock</i>PIN</label>
+                        </div>
+
+                        <div *ngIf="editprofForm.controls['pin'].invalid && (editprofForm.controls['pin'].dirty || editprofForm.controls['pin'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="editprofForm.controls['pin'].errors.required">
+                                PIN is required.
+                            </div>
+                            <div *ngIf="editprofForm.controls['pin'].errors.minlength">PIN must be at least 6 characters</div>
+                        </div>
+
+                        <div class="input-field ">
+                            <input class="form-control" formControlName="pic" type="text" class="validate">
+                            <label>
+                                <i class="material-icons left">account_box</i>Pic</label>
+                        </div>
+
+                        <button type="submit" [disabled]="editprofForm.pristine || editprofForm.invalid" class="btn btn-success modal-close">
+                            Save
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</main>
+<app-side-menu></app-side-menu>

@@ -1,0 +1,184 @@
+<main class="container ">
+
+    <div class="row">
+        <h4>Playlist </h4>
+    </div>
+    <div class="row">
+        <div class="input-field col s9">
+            <input id="" type="text" class="validate">
+            <label for=""></label>
+        </div>
+        <a class="waves-effect waves-light blue  btn">
+            <i class="material-icons left">search</i>SEarch</a>
+    </div>
+
+
+    <!--Card Product -->
+    <div class="row">
+        <div *ngFor="let video of videos" class="col s12 m6">
+            <div class="card ">
+                <div class="card-image ">
+                    <img src="../../assets/img/514054478.jpg">
+                    <span class="card-title">
+                        <h5>{{video.name}}</h5>
+                    </span>
+  
+                </div>
+                <!-- A container for floating buttons -->
+  
+                <div class="card-content">
+                    <h6>Category: {{video.category}} </h6>
+                </div>
+                <div class="card-buttons ">
+  
+                    <button class="btn-floating btn-small waves-effect waves-light blue darken-3 tooltipped modal-trigger" 
+                     data-position="bottom"  data-target="modalEdit"  data-tooltip="Edit"  (click)="cargar(video)" > 
+                        <i class="material-icons small">edit</i>
+                    </button>
+                  
+                    <button class="btn-floating btn-small waves-effect waves-light red darken-4 tooltipped " 
+                    data-position="bottom" data-tooltip="Delete"  (click)="deleteVideo(video)" >
+                        <i class="material-icons small">delete</i>
+                    </button>
+  
+  
+                </div>
+            </div>
+        </div>
+    </div>
+  
+  
+
+    <div class="fixed-action-btn">
+        <button data-position="left" data-tooltip="Upload video" 
+        data-target="modalUpload" 
+        class="btn-floating btn-large waves-effect waves-light red tooltipped modal-trigger">
+            <i class="material-icons small">add</i>
+        </button>
+  
+    </div>
+
+
+    <!-- Modal Structure Upload -->
+
+    <div class="row">
+        <div id="modalUpload" class="modal col s12 m4 ">
+            <div class="modal-content ">
+                <h4 class="center">Upload Video</h4>
+           
+                <div class="row">
+                
+                           
+                  <form [formGroup]="videoForm" (ngSubmit)="postVideo(videoForm)">
+                
+            
+                        <div class="input-field">
+                            <label for="name"><i class="material-icons left">videocam</i>Name</label>
+                            <input  id="name" class="form-control" formControlName="name" type="text">
+                        </div>
+                        <div *ngIf="videoForm.controls['name'].invalid && (videoForm.controls['name'].dirty || videoForm.controls['name'].touched)" class="alert alert-danger">
+                            <div *ngIf="videoForm.controls['name'].errors.required">
+                              Name is required.
+                            </div>
+                        </div>
+              
+           
+                      <div class="input-field">
+                        <label for="url"><i class="material-icons left">reply</i>URL</label>
+                          <input id="url" class="form-control" formControlName="url" type="text">
+                      </div>
+                      <div *ngIf="videoForm.controls['url'].invalid && (videoForm.controls['url'].dirty || videoForm.controls['url'].touched)" class="alert alert-danger">
+                          <div *ngIf="videoForm.controls['url'].errors.required">
+                              URL is required.
+                          </div>
+                      </div>
+   
+                      <div class="input-field">
+                          <label>Category:</label>
+                          <input class="form-control" formControlName="category" type="text">
+                      </div>
+                      <div *ngIf="videoForm.controls['category'].invalid && (videoForm.controls['category'].dirty || videoForm.controls['category'].touched)" class="alert alert-danger">
+                          <div *ngIf="videoForm.controls['category'].errors.required">
+                              Category is required.
+                          </div>
+                      </div>
+              
+              
+                        <button type="submit" 
+                            [disabled]="videoForm.pristine || videoForm.invalid" class="btn btn-success modal-close">
+                            Save
+                        </button>
+                  </form>
+                </div>
+            </div>
+        </div>
+   
+    </div>
+
+
+ <!-- Modal Structure Edit -->
+
+ <div class="row">
+    <div id="modalEdit" class="modal col s12 m4 ">
+        <div class="modal-content ">
+            <h4 class="center">Edit Video</h4>
+       
+            <div class="row">
+                <form [formGroup]="videoForm" novalidate   (ngSubmit)="updateVideo()">
+                    <div class="">
+                        <input class="form-control" formControlName="_id" type="text" hidden>
+                        <input class="form-control" formControlName="user" type="text" hidden>
+                    </div>
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input class="form-control" formControlName="name" type="text">
+                    </div>
+                    <div *ngIf="videoForm.controls['name'].invalid && (videoForm.controls['name'].dirty || videoForm.controls['name'].touched)" class="alert alert-danger">
+                        <div *ngIf="videoForm.controls['name'].errors.required">
+                          Name is required.
+                        </div>
+                    </div>
+          
+            
+                    <div class="input-field">
+                        <label>Category:</label>
+                        <input class="form-control" formControlName="category" type="text">
+                    </div>
+                    <div *ngIf="videoForm.controls['category'].invalid && (videoForm.controls['category'].dirty || videoForm.controls['category'].touched)" class="alert alert-danger">
+                        <div *ngIf="videoForm.controls['category'].errors.required">
+                            Category is required.
+                        </div>
+                    </div>
+            
+                
+                    <button type="submit"
+                        [disabled]="videoForm.pristine || videoForm.invalid" class="btn btn-success modal-close">
+                        Save
+                    </button>
+              </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<select [(ngModel)]="selectedValue">
+  <option *ngFor="let profile of profiles" [ngValue]="profile">{{profile.name}}</option>
+</select>
+
+
+  <div class="input-field col s12">
+    <select   class="form-control" >
+      <option value="" disabled selected>Choose your option</option>
+      <option *ngFor="let profile of profiles" [value]="profile">{{profile.name}}</option>
+    </select>
+    <label>Materialize Multiple Select</label>
+  </div>
+
+  <p *ngFor="let profile of profiles" >{{profile.name}}</p>
+
+</main>
+
+
+<app-side-menu></app-side-menu>
